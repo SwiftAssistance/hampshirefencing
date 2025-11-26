@@ -29,7 +29,8 @@
     <link rel="canonical" href="https://hampshirefencing.co.uk/">
     
     <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/logo.webp" type="image/webp">
+    <link rel="apple-touch-icon" href="images/logo.webp">
     
     <!-- SEO: Local Business Schema -->
     <script type="application/ld+json">
@@ -143,8 +144,42 @@
         .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
         .section { padding: 5rem 0; }
         .bg-light { background-color: var(--off-white); }
-        .bg-dark { background-color: var(--primary-green); color: white; }
+        
+        /* --- ANIMATED GREEN BACKGROUNDS (New Premium Look) --- */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bg-dark { 
+            color: white; 
+            /* Deep Green Gradient */
+            background: linear-gradient(-45deg, #2d5a2d, #1e3c1e, #356835, #2d5a2d);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
         .bg-dark h2, .bg-dark p { color: white; }
+        
+        /* Subtle Dot Pattern Overlay for Texture */
+        .bg-dark::before, .metrics-bar::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            pointer-events: none;
+        }
+        
+        /* Ensure text stays on top of pattern */
+        .bg-dark > *, .metrics-bar > * {
+            position: relative;
+            z-index: 2;
+        }
+
         .text-center { text-align: center; }
         
         /* --- BUTTONS --- */
@@ -371,6 +406,28 @@
         }
         .close-lightbox:hover { color: #bbb; }
 
+        /* --- MODAL (CONTACT) --- */
+        .contact-modal {
+            display: none; position: fixed; z-index: 1001; left: 0; top: 0;
+            width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6);
+            justify-content: center; align-items: center; backdrop-filter: blur(5px);
+        }
+        .contact-modal-content {
+            background-color: #fff; margin: auto; padding: 2rem; border: 1px solid #888;
+            width: 90%; max-width: 500px; border-radius: 16px; position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .close-modal {
+            position: absolute; top: 1rem; right: 1.5rem; color: #aaa; font-size: 28px;
+            font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .close-modal:hover { color: #000; }
+
         /* --- FAQ --- */
         .accordion { max-width: 800px; margin: 0 auto; }
         .accordion-item { border-bottom: 1px solid #ddd; }
@@ -382,10 +439,22 @@
         .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-right: 1rem; }
         
         /* --- METRICS --- */
+        /* Same Premium Background as CTA */
         .metrics-bar {
-            background: var(--primary-green); color: white; padding: 3rem 0;
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; text-align: center;
+            color: white;
+            padding: 3rem 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            text-align: center;
+            
+            background: linear-gradient(-45deg, #2d5a2d, #1e3c1e, #356835, #2d5a2d);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+            overflow: hidden;
         }
+        
         .metric-number { font-size: 2.5rem; font-weight: 800; display: block; font-feature-settings: "tnum"; }
         .metric-label { font-size: 0.9rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
         @media (min-width: 768px) { .metrics-bar { grid-template-columns: repeat(4, 1fr); } }
@@ -412,7 +481,7 @@
             box-shadow: var(--shadow-sm); z-index: 10;
         }
         .nav-prev { left: 0; } .nav-next { right: 0; }
-        @media (max-width: 768px) { .nav-btn { display: none; } }
+        /* @media (max-width: 768px) { .nav-btn { display: none; } }  <-- Removed this line */
 
         /* --- FORM --- */
         .embedded-form label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
@@ -446,7 +515,10 @@
     <!-- Header -->
     <header id="site-header">
         <div class="container header-inner">
-            <a href="#" class="logo">HAMPSHIRE FENCING LTD</a>
+            <!-- REVERTED: Text Logo for clarity in navigation -->
+            <a href="#" class="logo" style="text-decoration: none; color: var(--primary-green); font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px;">
+                HAMPSHIRE FENCING LTD
+            </a>
             <div class="header-contact">
                 <a href="tel:02394190849" class="header-call-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
@@ -465,6 +537,9 @@
         <div class="container hero-split">
             <!-- Text Side -->
             <div class="hero-text animate-up">
+                <!-- ADDED: Logo here in the "Title Bit" / Hero -->
+                <img src="images/logo.webp" alt="Hampshire Fencing Logo" style="height: 80px; width: auto; margin-bottom: 1.5rem; display: block;">
+                
                 <div class="trust-tag">
                     ★ Local Family Business
                 </div>
@@ -590,6 +665,14 @@
                     </div>
                 </a>
             </div>
+
+            <!-- NEW: Bespoke / Custom Project Catch-All -->
+            <div class="text-center" style="margin-top: 3rem;">
+                <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">Looking for something specific? We specialize in bespoke projects.</p>
+                <button onclick="openContactModal()" class="btn btn-outline">
+                    Tell Us About Your Project
+                </button>
+            </div>
         </div>
     </section>
 
@@ -647,6 +730,33 @@
     <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
         <span class="close-lightbox" onclick="closeLightbox(event)">&times;</span>
         <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="contact-modal" onclick="closeContactModal(event)">
+        <div class="contact-modal-content">
+            <span class="close-modal" onclick="closeContactModal(event)">&times;</span>
+            <h3 class="text-center" style="margin-bottom: 1rem;">Tell Us About Your Project</h3>
+            <form class="embedded-form" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="YOUR_KEY">
+                <input type="hidden" name="subject" value="Bespoke Project Inquiry - Hampshire Fencing">
+                <input type="hidden" name="from_name" value="Hampshire Fencing Website">
+                
+                <label for="m-name">Full Name</label>
+                <input type="text" id="m-name" name="name" placeholder="e.g. John Smith" required>
+                
+                <label for="m-email">Email Address</label>
+                <input type="email" id="m-email" name="email" placeholder="e.g. john@example.com" required>
+
+                <label for="m-phone">Phone Number</label>
+                <input type="tel" id="m-phone" name="phone" placeholder="e.g. 07700 900000" required>
+                
+                <label for="m-details">What do you need?</label>
+                <textarea id="m-details" name="details" rows="3" placeholder="Describe your project (e.g. bespoke gate, decking, specific wood type)..."></textarea>
+                
+                <button type="submit" class="btn btn-primary" style="width:100%">Enquire Now</button>
+            </form>
+        </div>
     </div>
 
     <!-- REVIEWS CAROUSEL -->
@@ -765,7 +875,8 @@
             <div class="footer-grid">
                 <!-- Col 1: Brand & Bio -->
                 <div class="footer-col">
-                    <h4 style="font-weight: 800; letter-spacing: -0.5px;">HAMPSHIRE FENCING LTD</h4>
+                    <!-- UPDATED: Logo Image in Footer -->
+                    <img src="images/logo.webp" alt="Hampshire Fencing Ltd" style="height: 60px; width: auto; margin-bottom: 1.5rem; display: block;">
                     <p style="color: #ccc; margin-bottom: 1.5rem;">The South Coast's premier fencing contractors. We build boundaries that last, serving homeowners and businesses with pride.</p>
                     
                     <a href="https://instagram.com/hampshirefencingltd" class="social-link" target="_blank">
@@ -854,6 +965,19 @@
         function closeLightbox(event) {
             if (event.target !== document.getElementById('lightbox-img')) {
                 document.getElementById('lightbox').style.display = "none";
+            }
+        }
+
+        // Contact Modal Scripts
+        function openContactModal() {
+            const modal = document.getElementById('contact-modal');
+            modal.style.display = "flex";
+        }
+
+        function closeContactModal(event) {
+            const modal = document.getElementById('contact-modal');
+            if (event.target === modal || event.target.classList.contains('close-modal')) {
+                modal.style.display = "none";
             }
         }
 
