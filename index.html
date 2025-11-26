@@ -304,14 +304,8 @@
         }
 
         @media (min-width: 900px) {
-            .bento-grid { grid-template-columns: repeat(12, 1fr); }
-            .bento-item-1 { grid-column: span 7; min-height: 400px; }
-            .bento-item-2 { grid-column: span 5; min-height: 400px; }
-            .bento-item-3 { grid-column: span 12; display: flex; flex-direction: row; align-items: center; min-height: 250px; }
-            .bento-item-3 .bento-content { margin-top: 0; margin-left: 2rem; flex: 1; }
-            .bento-item-3 .bento-icon-large { margin-bottom: 0; }
-            /* Adjust gradient for horizontal card */
-            .bento-item-3::before { background: linear-gradient(to right, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0.3) 100%); }
+            .bento-grid { grid-template-columns: repeat(3, 1fr); }
+            .bento-card { min-height: 450px; }
         }
 
         /* --- PROCESS --- */
@@ -557,7 +551,7 @@
                 </a>
 
                 <!-- CARD 2: COMMERCIAL (Updated with Image BG) -->
-                <a href="#contact" class="bento-card bento-item-2" style="background-image: url('images/secure-garden-gate.webp');">
+                <a href="#contact" class="bento-card bento-item-2" style="background-image: url('images/commercial.jpg');">
                     <div class="bento-icon-large">
                         <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                     </div>
@@ -569,7 +563,7 @@
                 </a>
 
                 <!-- CARD 3: REPAIRS (Updated with Image BG) -->
-                <a href="#contact" class="bento-card bento-item-3" style="background-image: url('images/traditional-picket-fence.webp');">
+                <a href="#contact" class="bento-card bento-item-3" style="background-image: url('images/repairs.jpg');">
                     <div class="bento-icon-large">
                         <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
                     </div>
@@ -873,4 +867,3 @@
     </script>
 </body>
 </html>
-
