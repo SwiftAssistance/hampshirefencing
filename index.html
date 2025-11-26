@@ -31,6 +31,15 @@
     <!-- Favicon -->
     <link rel="icon" href="images/logo.webp" type="image/webp">
     <link rel="apple-touch-icon" href="images/logo.webp">
+
+    <!-- PERF: Preload Critical LCP Image -->
+    <link rel="preload" as="image" href="images/hero.jpg">
+    
+    <!-- PERF: Non-blocking Font Loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"></noscript>
     
     <!-- SEO: Local Business Schema -->
     <script type="application/ld+json">
@@ -98,11 +107,6 @@
     }
     </script>
 
-    <!-- Preload critical assets -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-
     <style>
         /* --- CSS VARIABLES & RESET --- */
         :root {
@@ -121,6 +125,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        
         body {
             font-family: 'Manrope', system-ui, -apple-system, sans-serif;
             color: var(--text-dark);
@@ -129,6 +134,8 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
+        
+        body.no-scroll { overflow: hidden; }
 
         h1, h2, h3, h4 { color: var(--primary-green); line-height: 1.2; font-weight: 800; }
         h1 { font-size: 2.5rem; letter-spacing: -0.02em; }
@@ -237,7 +244,7 @@
             position: relative; 
             background-color: #f8fdf8;
             /* Mobile: Revert to Pattern for cleaner look behind stacked elements */
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d5a2d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d5a2d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             padding: 3rem 0; 
             overflow: hidden;
         }
@@ -403,6 +410,7 @@
         .close-lightbox {
             position: absolute; top: 20px; right: 35px; color: #f1f1f1;
             font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s;
+            background: none; border: none; padding: 0;
         }
         .close-lightbox:hover { color: #bbb; }
 
@@ -425,6 +433,7 @@
         .close-modal {
             position: absolute; top: 1rem; right: 1.5rem; color: #aaa; font-size: 28px;
             font-weight: bold; cursor: pointer; transition: 0.2s;
+            background: none; border: none; padding: 0;
         }
         .close-modal:hover { color: #000; }
 
@@ -481,7 +490,9 @@
             box-shadow: var(--shadow-sm); z-index: 10;
         }
         .nav-prev { left: 0; } .nav-next { right: 0; }
-        /* @media (max-width: 768px) { .nav-btn { display: none; } }  <-- Removed this line */
+        
+        /* Button Accessibility */
+        .nav-btn:focus { outline: 2px solid var(--primary-green); }
 
         /* --- FORM --- */
         .embedded-form label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
@@ -559,7 +570,7 @@
             </div>
 
             <!-- Mobile Image (Visible only on mobile) -->
-            <img src="images/hero.jpg" class="mobile-hero-img animate-up delay-100" alt="Premium Fencing Hampshire">
+            <img src="images/hero.jpg" class="mobile-hero-img animate-up delay-100" alt="Premium Fencing Hampshire" fetchpriority="high">
 
             <!-- Form Side (Immediate Conversion) -->
             <div class="hero-form-container animate-up delay-100">
@@ -681,8 +692,8 @@
         <div class="container">
             <h2 class="text-center">Recent Installations</h2>
             <div class="recent-work-grid">
-                
-                <div class="work-item" onclick="openLightbox(this)">
+                <!-- Added accessibility attributes for keyboard navigation -->
+                <div class="work-item" onclick="openLightbox(this)" role="button" tabindex="0" onkeypress="if(event.key === 'Enter' || event.key === ' ') openLightbox(this)">
                     <div class="work-image">
                         <img src="images/modern-panel-fence.webp" alt="Modern Panel Fencing Winchester" loading="lazy">
                     </div>
@@ -692,7 +703,7 @@
                     </p>
                 </div>
 
-                <div class="work-item" onclick="openLightbox(this)">
+                <div class="work-item" onclick="openLightbox(this)" role="button" tabindex="0" onkeypress="if(event.key === 'Enter' || event.key === ' ') openLightbox(this)">
                     <div class="work-image">
                          <img src="images/traditional-picket-fence.webp" alt="Traditional Picket Fencing Portsmouth" loading="lazy">
                     </div>
@@ -702,7 +713,7 @@
                     </p>
                 </div>
 
-                <div class="work-item" onclick="openLightbox(this)">
+                <div class="work-item" onclick="openLightbox(this)" role="button" tabindex="0" onkeypress="if(event.key === 'Enter' || event.key === ' ') openLightbox(this)">
                     <div class="work-image">
                          <img src="images/secure-garden-gate.webp" alt="Secure Garden Fencing Fareham" loading="lazy">
                     </div>
@@ -712,7 +723,7 @@
                     </p>
                 </div>
 
-                <div class="work-item" onclick="openLightbox(this)">
+                <div class="work-item" onclick="openLightbox(this)" role="button" tabindex="0" onkeypress="if(event.key === 'Enter' || event.key === ' ') openLightbox(this)">
                     <div class="work-image">
                          <img src="images/composite-fencing.webp" alt="Hampshire Fencing Team On Site" loading="lazy">
                     </div>
@@ -728,14 +739,14 @@
 
     <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
-        <span class="close-lightbox" onclick="closeLightbox(event)">&times;</span>
-        <img class="lightbox-content" id="lightbox-img">
+        <button type="button" class="close-lightbox" onclick="closeLightbox(event)" aria-label="Close lightbox">&times;</button>
+        <img class="lightbox-content" id="lightbox-img" alt="Enlarged view of installation">
     </div>
 
     <!-- Contact Modal -->
     <div id="contact-modal" class="contact-modal" onclick="closeContactModal(event)">
         <div class="contact-modal-content">
-            <span class="close-modal" onclick="closeContactModal(event)">&times;</span>
+            <button type="button" class="close-modal" onclick="closeContactModal(event)" aria-label="Close modal">&times;</button>
             <h3 class="text-center" style="margin-bottom: 1rem;">Tell Us About Your Project</h3>
             <form class="embedded-form" action="https://api.web3forms.com/submit" method="POST">
                 <input type="hidden" name="access_key" value="YOUR_KEY">
@@ -765,10 +776,10 @@
             <h2 class="text-center" style="margin-bottom: 3rem;">What Our Customers Say</h2>
             
             <div class="carousel-container">
-                <button class="nav-btn nav-prev" onclick="moveSlide(-1)">
+                <button class="nav-btn nav-prev" onclick="moveSlide(-1)" aria-label="Previous Slide">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
-                <button class="nav-btn nav-next" onclick="moveSlide(1)">
+                <button class="nav-btn nav-next" onclick="moveSlide(1)" aria-label="Next Slide">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
 
@@ -846,51 +857,6 @@
         </div>
     </section>
     
-    <section class="section">
-        <div class="container">
-            <h2 class="text-center">Common Questions</h2>
-            <div class="accordion">
-                <div class="accordion-item">
-                    <button class="accordion-header">
-                        Do you take away the old fencing?
-                        <span>+</span>
-                    </button>
-                    <div class="accordion-content">
-                        <p>Yes, absolutely. We hold a full waste carriers license. We will dismantle and dispose of all old fencing and green waste, leaving your garden spotless.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header">
-                        How long does a typical installation take?
-                        <span>+</span>
-                    </button>
-                    <div class="accordion-content">
-                        <p>Most standard garden fences (approx 10-15m) are completed within 1-2 days. Larger commercial projects will vary, but we will give you a strict timeline with your quote.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header">
-                        What areas do you cover?
-                        <span>+</span>
-                    </button>
-                    <div class="accordion-content">
-                        <p>We are based in Portsmouth but cover the entire Hampshire region, including Winchester, Southampton, Fareham, Havant, and Waterlooville.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section bg-dark text-center" style="padding: 6rem 0;">
-        <div class="container">
-            <h2 style="color: white; margin-bottom: 1rem;">Ready To Secure Your Property?</h2>
-            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
-                <a href="tel:02394190849" class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.2rem;">📞 Call 023 9419 0849</a>
-                <button onclick="document.querySelector('.hero-wrapper').scrollIntoView({behavior: 'smooth'})" class="btn btn-outline" style="color: white; border-color: white;">Get Online Quote</button>
-            </div>
-        </div>
-    </section>
-    
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -901,7 +867,8 @@
                     <img src="images/logo.webp" alt="Hampshire Fencing Ltd" style="height: 60px; width: auto; margin-bottom: 1.5rem; display: block;">
                     <p style="color: #ccc; margin-bottom: 1.5rem;">The South Coast's premier fencing contractors. We build boundaries that last, serving homeowners and businesses with pride.</p>
                     
-                    <a href="https://instagram.com/hampshirefencingltd" class="social-link" target="_blank">
+                    <!-- SECURITY IMPROVEMENT: Added rel="noopener noreferrer" -->
+                    <a href="https://instagram.com/hampshirefencingltd" class="social-link" target="_blank" rel="noopener noreferrer">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                         Follow on Instagram
                     </a>
@@ -940,7 +907,7 @@
             </div>
 
             <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; text-align: center; color: #666; font-size: 0.85rem;">
-                © 2024 Hampshire Fencing Ltd. Registered in England and Wales. Company Reg No: 14034263.
+                © <span id="year">2024</span> Hampshire Fencing Ltd. Registered in England and Wales. Company Reg No: 14034263.
             </div>
         </div>
     </footer>
@@ -952,11 +919,29 @@
     </div>
 
     <script>
-        // Sticky Header
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('site-header');
-            if (window.scrollY > 50) header.classList.add('scrolled');
-            else header.classList.remove('scrolled');
+        // Dynamic Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Sticky Header (Optimized with requestAnimationFrame)
+        let lastKnownScrollPosition = 0;
+        let ticking = false;
+
+        window.addEventListener('scroll', function(e) {
+          lastKnownScrollPosition = window.scrollY;
+
+          if (!ticking) {
+            window.requestAnimationFrame(function() {
+              const header = document.getElementById('site-header');
+              if (lastKnownScrollPosition > 50) {
+                  header.classList.add('scrolled');
+              } else {
+                  header.classList.remove('scrolled');
+              }
+              ticking = false;
+            });
+
+            ticking = true;
+          }
         });
 
         // Accordion
@@ -975,18 +960,21 @@
             });
         }
 
-        // Lightbox Scripts
+        // Lightbox Scripts (Optimized)
         function openLightbox(element) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
             const img = element.querySelector('img');
             lightbox.style.display = "flex";
             lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt; // Copy alt text for accessibility
+            document.body.classList.add('no-scroll'); // Lock background scroll
         }
 
         function closeLightbox(event) {
             if (event.target !== document.getElementById('lightbox-img')) {
                 document.getElementById('lightbox').style.display = "none";
+                document.body.classList.remove('no-scroll'); // Unlock background scroll
             }
         }
 
@@ -994,12 +982,14 @@
         function openContactModal() {
             const modal = document.getElementById('contact-modal');
             modal.style.display = "flex";
+            document.body.classList.add('no-scroll');
         }
 
         function closeContactModal(event) {
             const modal = document.getElementById('contact-modal');
             if (event.target === modal || event.target.classList.contains('close-modal')) {
                 modal.style.display = "none";
+                document.body.classList.remove('no-scroll');
             }
         }
 
