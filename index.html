@@ -201,13 +201,8 @@
         .hero-wrapper {
             position: relative; 
             background-color: #f8fdf8;
-            /* Mobile: Vertical gradient with REDUCED OPACITY so text reads well but image shows */
-            background-image: 
-                linear-gradient(to bottom, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 100%),
-                url('images/hero.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: scroll; /* Keep scroll on mobile */
+            /* Mobile: Revert to Pattern for cleaner look behind stacked elements */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d5a2d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             padding: 3rem 0; 
             overflow: hidden;
         }
@@ -227,6 +222,17 @@
             position: relative;
         }
 
+        /* Mobile Only Hero Image */
+        .mobile-hero-img {
+            display: block;
+            width: 100%;
+            height: 250px; /* Fixed height for consistent look */
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
         /* Availability Badge */
         .availability-badge {
             background-color: #f0fdf4; color: #15803d; border: 1px dashed #15803d;
@@ -244,6 +250,8 @@
 
         /* DESKTOP UPGRADES (Immersive Mode) */
         @media (min-width: 900px) {
+            .mobile-hero-img { display: none; } /* Hide separate image on desktop */
+
             .hero-wrapper { 
                 padding: 6rem 0; 
                 min-height: 85vh; 
@@ -254,6 +262,8 @@
                     linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.4) 100%),
                     url('images/hero.jpg'); 
                 background-attachment: fixed; /* Parallax effect */
+                background-size: cover;
+                background-position: center;
             }
             .hero-split { grid-template-columns: 1.2fr 1fr; }
             
@@ -472,6 +482,9 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Mobile Image (Visible only on mobile) -->
+            <img src="images/hero.jpg" class="mobile-hero-img animate-up delay-100" alt="Premium Fencing Hampshire">
 
             <!-- Form Side (Immediate Conversion) -->
             <div class="hero-form-container animate-up delay-100">
