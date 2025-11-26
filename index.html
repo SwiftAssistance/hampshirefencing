@@ -206,7 +206,7 @@
                 url('images/modern-panel-fence.webp'); /* Fallback / Placeholder */
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Parallax effect */
+            background-attachment: scroll; /* Mobile fix: changed from fixed to scroll */
             padding: 3rem 0; 
             overflow: hidden;
         }
@@ -243,7 +243,13 @@
         .trust-pill svg { width: 18px; height: 18px; color: var(--accent-green); }
 
         @media (min-width: 900px) {
-            .hero-wrapper { padding: 6rem 0; min-height: 85vh; display: flex; align-items: center; }
+            .hero-wrapper { 
+                padding: 6rem 0; 
+                min-height: 85vh; 
+                display: flex; 
+                align-items: center;
+                background-attachment: fixed; /* Restored parallax for larger screens only */
+            }
             .hero-split { grid-template-columns: 1.2fr 1fr; }
         }
 
