@@ -166,7 +166,7 @@
         }
         .btn-pulse { animation: pulse-green 2s infinite; }
 
-        /* --- ANIMATIONS (NEW) --- */
+        /* --- ANIMATIONS --- */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -197,16 +197,12 @@
             .header-cta-btn { display: inline-flex; }
         }
 
-        /* --- HERO SPLIT (REVISED FOR VISUAL IMPACT) --- */
+        /* --- HERO SPLIT (RESPONSIVE DESIGN) --- */
         .hero-wrapper {
             position: relative; 
-            /* NEW: Image Background with Gradient Overlay */
-            background-image: 
-                linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.4) 100%),
-                url('images/modern-panel-fence.webp'); /* Fallback / Placeholder */
-            background-size: cover;
-            background-position: center;
-            background-attachment: scroll; /* Mobile fix: changed from fixed to scroll */
+            /* Mobile: Clean SVG Pattern (No Clutter) */
+            background-color: #f8fdf8;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d5a2d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             padding: 3rem 0; 
             overflow: hidden;
         }
@@ -216,14 +212,13 @@
         .hero-text { max-width: 600px; }
         .trust-tag { display:inline-block; background:#e8f5e9; color:#2d5a2d; padding:0.25rem 0.75rem; border-radius:50px; font-weight:700; font-size:0.85rem; margin-bottom:1rem; border: 1px solid rgba(45, 90, 45, 0.1); }
         
-        /* NEW: Glassmorphism Form */
+        /* Responsive Form Container */
         .hero-form-container {
-            background: rgba(255, 255, 255, 0.95); /* Slight transparency */
-            backdrop-filter: blur(10px);
+            background: white; /* Solid white on mobile */
             padding: 2.5rem; 
             border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1); /* Deeper shadow */
-            border: 1px solid rgba(255,255,255,0.5); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 1px solid #eee; 
             position: relative;
         }
 
@@ -242,15 +237,30 @@
         }
         .trust-pill svg { width: 18px; height: 18px; color: var(--accent-green); }
 
+        /* DESKTOP UPGRADES (Immersive Mode) */
         @media (min-width: 900px) {
             .hero-wrapper { 
                 padding: 6rem 0; 
                 min-height: 85vh; 
                 display: flex; 
                 align-items: center;
-                background-attachment: fixed; /* Restored parallax for larger screens only */
+                /* Immersive Image only on Desktop */
+                background-image: 
+                    linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.4) 100%),
+                    url('images/modern-panel-fence.webp'); 
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed; /* Parallax effect */
             }
             .hero-split { grid-template-columns: 1.2fr 1fr; }
+            
+            /* Glass effect only on desktop */
+            .hero-form-container {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                border: 1px solid rgba(255,255,255,0.5);
+            }
         }
 
         /* --- UPDATED BENTO GRID --- */
