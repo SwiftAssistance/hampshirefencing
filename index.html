@@ -166,6 +166,16 @@
         }
         .btn-pulse { animation: pulse-green 2s infinite; }
 
+        /* --- ANIMATIONS (NEW) --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
         /* --- HEADER --- */
         header {
             background: white; position: sticky; top: 0; z-index: 100;
@@ -187,25 +197,34 @@
             .header-cta-btn { display: inline-flex; }
         }
 
-        /* --- HERO SPLIT --- */
+        /* --- HERO SPLIT (REVISED FOR VISUAL IMPACT) --- */
         .hero-wrapper {
-            position: relative; background-color: #f8fdf8;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d5a2d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            padding: 3rem 0; overflow: hidden;
+            position: relative; 
+            /* NEW: Image Background with Gradient Overlay */
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.4) 100%),
+                url('images/modern-panel-fence.webp'); /* Fallback / Placeholder */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+            padding: 3rem 0; 
+            overflow: hidden;
         }
-        .hero-wrapper::before {
-            content: ''; position: absolute; top: -100px; right: -100px;
-            width: 600px; height: 600px; background: rgba(74, 143, 74, 0.05);
-            border-radius: 50%; z-index: 0;
-        }
+        
         .hero-split { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; position: relative; z-index: 1; }
         
         .hero-text { max-width: 600px; }
         .trust-tag { display:inline-block; background:#e8f5e9; color:#2d5a2d; padding:0.25rem 0.75rem; border-radius:50px; font-weight:700; font-size:0.85rem; margin-bottom:1rem; border: 1px solid rgba(45, 90, 45, 0.1); }
         
+        /* NEW: Glassmorphism Form */
         .hero-form-container {
-            background: white; padding: 2rem; border-radius: 16px;
-            box-shadow: var(--shadow-lg); border: 1px solid #eee; position: relative;
+            background: rgba(255, 255, 255, 0.95); /* Slight transparency */
+            backdrop-filter: blur(10px);
+            padding: 2.5rem; 
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); /* Deeper shadow */
+            border: 1px solid rgba(255,255,255,0.5); 
+            position: relative;
         }
 
         /* Availability Badge */
@@ -224,11 +243,11 @@
         .trust-pill svg { width: 18px; height: 18px; color: var(--accent-green); }
 
         @media (min-width: 900px) {
-            .hero-wrapper { padding: 5rem 0; min-height: 80vh; display: flex; align-items: center; }
+            .hero-wrapper { padding: 6rem 0; min-height: 85vh; display: flex; align-items: center; }
             .hero-split { grid-template-columns: 1.2fr 1fr; }
         }
 
-        /* --- UPDATED BENTO GRID (WITH IMAGES) --- */
+        /* --- UPDATED BENTO GRID --- */
         .bento-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         .bento-card {
             position: relative; border-radius: 16px; overflow: hidden;
@@ -422,7 +441,7 @@
     <section class="hero-wrapper">
         <div class="container hero-split">
             <!-- Text Side -->
-            <div class="hero-text">
+            <div class="hero-text animate-up">
                 <div class="trust-tag">
                     ★ Local Family Business
                 </div>
@@ -438,15 +457,11 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                         Fully Insured
                     </div>
-                    <div class="trust-pill">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        Checkatrade Member
-                    </div>
                 </div>
             </div>
 
             <!-- Form Side (Immediate Conversion) -->
-            <div class="hero-form-container">
+            <div class="hero-form-container animate-up delay-100">
                 <h3 class="text-center" style="margin-bottom: 0.5rem;">Get Your Free Quote</h3>
                 <p class="text-center" style="font-size: 0.9rem; margin-bottom: 1.5rem;">Response within 24 hours.</p>
                 
