@@ -17,8 +17,15 @@
   gtag('js', new Date());
 
   gtag('config', 'AW-17864048724', {
-    'allow_enhanced_conversions': true
+    'allow_enhanced_conversions': true,
+    'phone_conversion_number': '02394190849'
   });
+
+  // Report conversion for contact
+  function gtag_report_conversion(url) {
+    gtag('event', 'conversion', {'send_to': 'AW-17864048724'});
+    return false;
+  }
 </script>
     
     <!-- Open Graph / Facebook / WhatsApp -->
@@ -958,25 +965,37 @@
                 name: formData.get('name')
             };
 
-            // Track lead conversion event (Google Ads will automatically track this)
+            // Track conversion using multiple methods for better detection
             if (typeof gtag !== 'undefined') {
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-17864048724',
-                    'event_callback': function() {
-                        console.log('Lead conversion tracked');
-                    }
-                });
-
-                // Send enhanced conversion data
+                // Send enhanced conversion data first
                 gtag('set', 'user_data', {
                     "email": userData.email,
                     "phone_number": userData.phone
                 });
 
-                // Also track as generate_lead event for better reporting
+                // Track as conversion event
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-17864048724',
+                    'value': 50.0,
+                    'currency': 'GBP',
+                    'event_callback': function() {
+                        console.log('Lead conversion tracked');
+                    }
+                });
+
+                // Track as generate_lead (standard event for auto-conversion)
                 gtag('event', 'generate_lead', {
                     'event_category': 'engagement',
-                    'event_label': formId === 'hero-form' ? 'Hero Form' : 'Modal Form'
+                    'event_label': formId === 'hero-form' ? 'Hero Form' : 'Modal Form',
+                    'value': 50.0,
+                    'currency': 'GBP'
+                });
+
+                // Track as submit_form (for additional tracking)
+                gtag('event', 'submit_form', {
+                    'event_category': 'contact',
+                    'event_label': formId,
+                    'form_type': 'quote_request'
                 });
             }
 
@@ -1013,16 +1032,26 @@
         // Track phone click conversions
         function trackPhoneClick() {
             if (typeof gtag !== 'undefined') {
+                // Track as conversion
                 gtag('event', 'conversion', {
-                    'send_to': 'AW-17864048724'
+                    'send_to': 'AW-17864048724',
+                    'value': 30.0,
+                    'currency': 'GBP'
                 });
 
-                // Also track as contact event
+                // Track as contact event (standard event)
                 gtag('event', 'contact', {
                     'event_category': 'engagement',
                     'event_label': 'Phone Click',
-                    'method': 'phone'
+                    'method': 'phone',
+                    'value': 30.0,
+                    'currency': 'GBP'
                 });
+
+                // Report conversion using helper function
+                if (typeof gtag_report_conversion !== 'undefined') {
+                    gtag_report_conversion();
+                }
             }
         }
 
