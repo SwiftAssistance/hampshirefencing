@@ -16,7 +16,15 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'AW-17864048724');
+  gtag('config', 'AW-17864048724', {
+    'allow_enhanced_conversions': true
+  });
+
+  // Conversion Action IDs (Update these with your actual conversion IDs from Google Ads)
+  window.conversionConfig = {
+    lead: 'AW-17864048724/xxxxx', // Replace with your lead conversion ID
+    phone: 'AW-17864048724/yyyyy'  // Replace with your phone call conversion ID
+  };
 </script>
     
     <!-- Open Graph / Facebook / WhatsApp -->
@@ -533,6 +541,13 @@
 </head>
 <body>
 
+    <!-- Special Offer Banner -->
+    <div style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; text-align: center; padding: 0.75rem 1rem; font-weight: 700; font-size: 0.95rem; position: relative; z-index: 101; box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);">
+        <span style="display: inline-flex; align-items: center; gap: 0.5rem;">
+            ⚡ <span>WINTER SPECIAL: Book This Week & Save 10% on All New Installations</span> ⚡
+        </span>
+    </div>
+
     <!-- Header -->
     <header id="site-header">
         <div class="container header-inner">
@@ -562,19 +577,23 @@
                 <img src="images/logo.webp" alt="Hampshire Fencing Logo" style="height: 80px; width: auto; margin: 0 auto 1.5rem auto; display: block;">
                 
                 <div class="trust-tag">
-                    ★ Local Family Business
+                    ★ Local Family Business | 5.0 Rating
                 </div>
-                <h1>Secure Your Property With Premium Fencing.</h1>
-                <p>We don't just build fences; we add value to your Hampshire home. Fully insured, 5-star rated, and built to last.</p>
+                <h1>Transform Your Garden With Professional Fencing in 1-2 Days</h1>
+                <p style="font-size: 1.15rem; font-weight: 500;">Hampshire's #1 rated fencing specialists. Same-week installations available. Free quotes in 24 hours. Fully insured & guaranteed.</p>
                 
                 <div class="hero-badges">
                     <div class="trust-pill">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        100+ Projects
+                        200+ Projects Completed
                     </div>
                     <div class="trust-pill">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        Fully Insured
+                        £5M Public Liability
+                    </div>
+                    <div class="trust-pill">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Same Week Starts
                     </div>
                 </div>
             </div>
@@ -584,29 +603,32 @@
 
             <!-- Form Side (Immediate Conversion) -->
             <div class="hero-form-container animate-up delay-100">
+                <div class="availability-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; font-weight: 800; font-size: 0.9rem; padding: 0.75rem; margin-bottom: 1.5rem; text-align: center; border-radius: 8px; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);">
+                    🚀 Fast Response: Free Quotes in 24hrs
+                </div>
                 <h3 class="text-center" style="margin-bottom: 0.5rem;">Get Your Free Quote</h3>
-                <p class="text-center" style="font-size: 0.9rem; margin-bottom: 1.5rem;">Response within 24 hours.</p>
+                <p class="text-center" style="font-size: 0.9rem; margin-bottom: 1.5rem; color: #059669; font-weight: 600;">⚡ Limited Availability - Book Your Slot Today</p>
                 
-                <form class="embedded-form" action="https://api.web3forms.com/submit" method="POST">
+                <form class="embedded-form" id="hero-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="return handleFormSubmit(event, 'hero-form')">
                     <input type="hidden" name="access_key" value="YOUR_KEY">
                     <input type="hidden" name="subject" value="New Quote Request - Hampshire Fencing">
                     <input type="hidden" name="from_name" value="Hampshire Fencing Website">
-                    
+
                     <label for="h-name">Full Name</label>
                     <input type="text" id="h-name" name="name" placeholder="e.g. John Smith" required>
-                    
+
                     <label for="h-email">Email Address</label>
                     <input type="email" id="h-email" name="email" placeholder="e.g. john@example.com" required>
 
                     <label for="h-phone">Phone Number</label>
                     <input type="tel" id="h-phone" name="phone" placeholder="e.g. 07700 900000" required>
-                    
+
                     <label for="h-postcode">Postcode / Area</label>
                     <input type="text" id="h-postcode" name="postcode" placeholder="e.g. PO1 or Portsmouth" required>
 
                     <label for="h-details">Project Details</label>
                     <textarea id="h-details" name="details" rows="2" placeholder="Approx 15m of fence needed..."></textarea>
-                    
+
                     <button type="submit" class="btn btn-primary">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                         Get My Free Quote
@@ -651,38 +673,38 @@
                 
                 <!-- CARD 1: RESIDENTIAL (Updated with Image BG) -->
                 <!-- Please use your own image URL here. I am using the one from recent work as a placeholder -->
-                <a href="#contact" class="bento-card bento-item-1" style="background-image: url('images/residential.jpg');">
+                <a href="javascript:void(0)" onclick="document.querySelector('.hero-wrapper').scrollIntoView({behavior: 'smooth'}); trackServiceClick('Garden Fencing');" class="bento-card bento-item-1" style="background-image: url('images/residential.jpg');">
                     <div class="bento-icon-large">
                          <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     </div>
                     <div class="bento-content">
                         <h3>Garden Fencing</h3>
                         <p>We supply and install beautiful, long-lasting timber fencing. Whether you need Featheredge, Picket, or Panels, we ensure a perfect finish.</p>
-                        <span class="bento-arrow">Get Quote →</span>
+                        <span class="bento-arrow">Get Free Quote →</span>
                     </div>
                 </a>
 
                 <!-- CARD 2: COMMERCIAL (Updated with Image BG) -->
-                <a href="#contact" class="bento-card bento-item-2" style="background-image: url('images/commercial.jpg');">
+                <a href="javascript:void(0)" onclick="document.querySelector('.hero-wrapper').scrollIntoView({behavior: 'smooth'}); trackServiceClick('Site Security');" class="bento-card bento-item-2" style="background-image: url('images/commercial.jpg');">
                     <div class="bento-icon-large">
                         <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                     </div>
                     <div class="bento-content">
                         <h3>Site Security</h3>
                         <p>Protect your business premises. We install heavy-duty steel palisade, mesh security systems, and site hoarding.</p>
-                        <span class="bento-arrow">Secure Site →</span>
+                        <span class="bento-arrow">Get Free Quote →</span>
                     </div>
                 </a>
 
                 <!-- CARD 3: REPAIRS (Updated with Image BG) -->
-                <a href="#contact" class="bento-card bento-item-3" style="background-image: url('images/repairs.jpg');">
+                <a href="javascript:void(0)" onclick="document.querySelector('.hero-wrapper').scrollIntoView({behavior: 'smooth'}); trackServiceClick('Storm Repairs');" class="bento-card bento-item-3" style="background-image: url('images/repairs.jpg');">
                     <div class="bento-icon-large">
                         <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
                     </div>
                     <div class="bento-content">
                         <h3>Storm Fixes & Repairs</h3>
                         <p>Wobbly posts? Blown down panels? We offer rapid repairs to secure your boundary, often within 24 hours.</p>
-                        <span class="bento-arrow">Fast Repair →</span>
+                        <span class="bento-arrow">Get Emergency Quote →</span>
                     </div>
                 </a>
             </div>
@@ -758,23 +780,23 @@
         <div class="contact-modal-content">
             <button type="button" class="close-modal" onclick="closeContactModal(event)" aria-label="Close modal">&times;</button>
             <h3 class="text-center" style="margin-bottom: 1rem;">Tell Us About Your Project</h3>
-            <form class="embedded-form" action="https://api.web3forms.com/submit" method="POST">
+            <form class="embedded-form" id="modal-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="return handleFormSubmit(event, 'modal-form')">
                 <input type="hidden" name="access_key" value="YOUR_KEY">
                 <input type="hidden" name="subject" value="Bespoke Project Inquiry - Hampshire Fencing">
                 <input type="hidden" name="from_name" value="Hampshire Fencing Website">
-                
+
                 <label for="m-name">Full Name</label>
                 <input type="text" id="m-name" name="name" placeholder="e.g. John Smith" required>
-                
+
                 <label for="m-email">Email Address</label>
                 <input type="email" id="m-email" name="email" placeholder="e.g. john@example.com" required>
 
                 <label for="m-phone">Phone Number</label>
                 <input type="tel" id="m-phone" name="phone" placeholder="e.g. 07700 900000" required>
-                
+
                 <label for="m-details">What do you need?</label>
                 <textarea id="m-details" name="details" rows="3" placeholder="Describe your project (e.g. bespoke gate, decking, specific wood type)..."></textarea>
-                
+
                 <button type="submit" class="btn btn-primary" style="width:100%">Enquire Now</button>
             </form>
         </div>
@@ -929,6 +951,103 @@
     </div>
 
     <script>
+        // Google Ads Conversion Tracking
+        function trackConversion(conversionLabel, formData) {
+            if (typeof gtag !== 'undefined') {
+                // Track the conversion
+                gtag('event', 'conversion', {
+                    'send_to': conversionLabel,
+                    'event_callback': function() {
+                        console.log('Conversion tracked successfully');
+                    }
+                });
+
+                // Send enhanced conversion data if email is available
+                if (formData && formData.email) {
+                    gtag('set', 'user_data', {
+                        "email": formData.email,
+                        "phone_number": formData.phone
+                    });
+                }
+            }
+        }
+
+        // Handle form submission with conversion tracking
+        function handleFormSubmit(event, formId) {
+            event.preventDefault();
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+
+            // Extract user data for enhanced conversions
+            const userData = {
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                name: formData.get('name')
+            };
+
+            // Track conversion (update with your actual conversion label)
+            if (window.conversionConfig && window.conversionConfig.lead) {
+                trackConversion(window.conversionConfig.lead, userData);
+            }
+
+            // Submit form data
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    alert('Thank you! We\'ll get back to you within 24 hours.');
+                    form.reset();
+                    // Close modal if it was from modal form
+                    if (formId === 'modal-form') {
+                        closeContactModal({ target: document.getElementById('contact-modal') });
+                    }
+                } else {
+                    alert('There was an issue submitting your request. Please call us at 023 9419 0849.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an issue submitting your request. Please call us at 023 9419 0849.');
+            });
+
+            return false;
+        }
+
+        // Track phone click conversions
+        function trackPhoneClick() {
+            if (typeof gtag !== 'undefined' && window.conversionConfig && window.conversionConfig.phone) {
+                gtag('event', 'conversion', {
+                    'send_to': window.conversionConfig.phone
+                });
+            }
+        }
+
+        // Add phone tracking to all phone links
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+            phoneLinks.forEach(link => {
+                link.addEventListener('click', trackPhoneClick);
+            });
+        });
+
+        // Track service card clicks
+        function trackServiceClick(serviceName) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'service_interest', {
+                    'event_category': 'engagement',
+                    'event_label': serviceName,
+                    'value': 1
+                });
+            }
+        }
+
         // Dynamic Year
         document.getElementById('year').textContent = new Date().getFullYear();
 
