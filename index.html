@@ -19,12 +19,6 @@
   gtag('config', 'AW-17864048724', {
     'allow_enhanced_conversions': true
   });
-
-  // Conversion Action IDs (Update these with your actual conversion IDs from Google Ads)
-  window.conversionConfig = {
-    lead: 'AW-17864048724/xxxxx', // Replace with your lead conversion ID
-    phone: 'AW-17864048724/yyyyy'  // Replace with your phone call conversion ID
-  };
 </script>
     
     <!-- Open Graph / Facebook / WhatsApp -->
@@ -951,27 +945,6 @@
     </div>
 
     <script>
-        // Google Ads Conversion Tracking
-        function trackConversion(conversionLabel, formData) {
-            if (typeof gtag !== 'undefined') {
-                // Track the conversion
-                gtag('event', 'conversion', {
-                    'send_to': conversionLabel,
-                    'event_callback': function() {
-                        console.log('Conversion tracked successfully');
-                    }
-                });
-
-                // Send enhanced conversion data if email is available
-                if (formData && formData.email) {
-                    gtag('set', 'user_data', {
-                        "email": formData.email,
-                        "phone_number": formData.phone
-                    });
-                }
-            }
-        }
-
         // Handle form submission with conversion tracking
         function handleFormSubmit(event, formId) {
             event.preventDefault();
@@ -985,9 +958,26 @@
                 name: formData.get('name')
             };
 
-            // Track conversion (update with your actual conversion label)
-            if (window.conversionConfig && window.conversionConfig.lead) {
-                trackConversion(window.conversionConfig.lead, userData);
+            // Track lead conversion event (Google Ads will automatically track this)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-17864048724',
+                    'event_callback': function() {
+                        console.log('Lead conversion tracked');
+                    }
+                });
+
+                // Send enhanced conversion data
+                gtag('set', 'user_data', {
+                    "email": userData.email,
+                    "phone_number": userData.phone
+                });
+
+                // Also track as generate_lead event for better reporting
+                gtag('event', 'generate_lead', {
+                    'event_category': 'engagement',
+                    'event_label': formId === 'hero-form' ? 'Hero Form' : 'Modal Form'
+                });
             }
 
             // Submit form data
@@ -1022,9 +1012,16 @@
 
         // Track phone click conversions
         function trackPhoneClick() {
-            if (typeof gtag !== 'undefined' && window.conversionConfig && window.conversionConfig.phone) {
+            if (typeof gtag !== 'undefined') {
                 gtag('event', 'conversion', {
-                    'send_to': window.conversionConfig.phone
+                    'send_to': 'AW-17864048724'
+                });
+
+                // Also track as contact event
+                gtag('event', 'contact', {
+                    'event_category': 'engagement',
+                    'event_label': 'Phone Click',
+                    'method': 'phone'
                 });
             }
         }
