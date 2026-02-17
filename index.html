@@ -12,7 +12,6 @@
   gtag('config', 'AW-17864048724');
 </script>
         
-<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17864048724"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-17864048724'); </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -778,7 +777,7 @@
             <button type="button" class="close-modal" onclick="closeContactModal(event)" aria-label="Close modal">&times;</button>
             <h3 class="text-center" style="margin-bottom: 1rem;">Tell Us About Your Project</h3>
             <form class="embedded-form" id="modal-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="return handleFormSubmit(event, 'modal-form')">
-                <input type="hidden" name="access_key" value="YOUR_KEY">
+                <input type="hidden" name="access_key" value="bc6fb5fc-82e9-4564-9lf9-960547acb045">
                 <input type="hidden" name="subject" value="Bespoke Project Inquiry - Hampshire Fencing">
                 <input type="hidden" name="from_name" value="Hampshire Fencing Website">
 
@@ -964,10 +963,9 @@
             // Track lead conversion event (Google Ads will automatically track this)
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'conversion', {
-                    'send_to': 'AW-17864048724',
-                    'event_callback': function() {
-                        console.log('Lead conversion tracked');
-                    }
+                    'send_to': 'AW-17864048724/jOlJCJ2Al-cbENSAn8ZC',
+                    'value': 1.0,
+                    'currency': 'GBP'
                 });
 
                 // Send enhanced conversion data
@@ -1017,7 +1015,7 @@
         function trackPhoneClick() {
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'conversion', {
-                    'send_to': 'AW-17864048724'
+                    'send_to': 'AW-17864048724/reY3CPvUhuEbENSAn8ZC'
                 });
 
                 // Also track as contact event
